@@ -56,7 +56,7 @@ type pushEventHandler interface {
 // PushEvent is used to get payload and assign to json
 func PushEvent(w http.ResponseWriter, r *http.Request) {
 
-	log.Println(r)
+	log.Println(r.Body)
 	var p PayloadBody
 	var g GithubPush
 
@@ -79,15 +79,16 @@ func PushEvent(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (p GithubPush) push() *mongo.InsertOneResult {
+func (g GithubPush) push() *mongo.InsertOneResult {
 
 	db := connection.DBConnection()
 
-	pushEventCollection := db.Database("webhookdb").Collection("githubPush")
+	pushEventCollection := db.Database("webhookdb").Collection("pushCollection")
 
-	pushResult, err := pushEventCollection.InsertOne(context.TODO(), p)
+	pushResult, err := pushEventCollection.InsertOne(context.TODO(), g)
 	if err != nil {
 		panic(err)
 	}
 	return pushResult
 }
+
