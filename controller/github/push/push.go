@@ -77,6 +77,9 @@ func PushEvent(w http.ResponseWriter, r *http.Request) {
 	g.CommitLink = p.Commits[0].CommitLink
 	g.UpdatedTime = time.Now()
 
+	w.Header().Set("Content-Type", "appliction/json")
+	json.NewEncoder(w).Encode(g.push())
+
 }
 
 func (g GithubPush) push() *mongo.InsertOneResult {
@@ -91,4 +94,3 @@ func (g GithubPush) push() *mongo.InsertOneResult {
 	}
 	return pushResult
 }
-
