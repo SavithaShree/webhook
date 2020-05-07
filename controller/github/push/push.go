@@ -83,7 +83,7 @@ func (g GithubPush) push() *mongo.InsertOneResult {
 
 	db := connection.DBConnection()
 
-	pushEventCollection := db.Database("webhookdb").Collection("pushCollection")
+	pushEventCollection := db.Database("webhookdb").Collection("githubPush")
 
 	pushResult, err := pushEventCollection.InsertOne(context.TODO(), g)
 	if err != nil {
