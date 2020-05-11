@@ -2,7 +2,7 @@ package router
 
 import (
 	"webhook/controller"
-	githubPushController "webhook/controller/github/push"
+	"webhook/controller/github"
 	"webhook/controller/gitlab"
 	mergeController "webhook/controller/gitlab/merge"
 
@@ -16,6 +16,6 @@ func MakeHTTPHandler() *mux.Router {
 	mux.HandleFunc("/", controller.Welcome).Methods("GET")
 	mux.HandleFunc("/bitbucket", mergeController.MergeEvent).Methods("POST")
 	mux.HandleFunc("/gitlab", gitlab.WebhookEvent).Methods("POST")
-	mux.HandleFunc("/github", githubPushController.PushEvent).Methods("POST")
+	mux.HandleFunc("/github", github.WebhookEvent).Methods("POST")
 	return mux
 }
