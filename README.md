@@ -1,3 +1,3 @@
 # pts-go-webhook
 
-To store details of the repo events# webhook
+To store details of the repo events
